@@ -1,5 +1,5 @@
 // 发送请求，获取数据，放到home仓库管理
-import {reqCategoryList,reqGetBannerList} from '@/api/index.js'
+import {reqCategoryList,reqGetBannerList,reqFloorList} from '@/api/index.js'
 
 // home模块，需要暴露对象
 const actions = {
@@ -14,6 +14,13 @@ const actions = {
     if(resBanner.code === 200){
       context.commit('GETBANNERLIST',resBanner.data)
     }
+  },
+  // floor数据模拟请求事件
+  async getFloorList(context){
+    const resFloor = await reqFloorList()
+    if(resFloor.code ===200){
+      context.commit('GETFLOORLIST',resFloor.data)
+    }
   }
 }
 const mutations = {
@@ -22,16 +29,19 @@ const mutations = {
   },
   GETBANNERLIST(state,value){
     state.BannerList = value
+  },
+  GETFLOORLIST(state,value){
+    state.FloorList=value
   }
 }
 const state = {
   CategoryList:[],
-  BannerList:[]
+  BannerList:[],
+  FloorList:[]
 }
 const getters = {}
 
 export default{
-  namespace:true,
   actions,
   mutations,
   state,
