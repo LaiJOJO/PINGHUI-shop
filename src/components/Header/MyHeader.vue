@@ -6,21 +6,28 @@
                 <div class="container">
                     <div class="loginList">
                         <p>尚品汇欢迎您！</p>
-                        <p>
+                        <p v-if="userInfo.name">
+                            <span>用户 : {{ userInfo.name }}</span>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            <a href="javascript:;" @click="logout">退出登录</a>
+                        </p>
+                        <p v-else>
                             <span>请</span>
                             <router-link to="/login">登录</router-link>
                             <router-link to="/register" class="register">免费注册</router-link>
                         </p>
                     </div>
                     <div class="typeList">
-                        <a href="###">我的订单</a>
-                        <a href="###">我的购物车</a>
-                        <a href="###">我的尚品汇</a>
-                        <a href="###">尚品汇会员</a>
-                        <a href="###">企业采购</a>
-                        <a href="###">关注尚品汇</a>
-                        <a href="###">合作招商</a>
-                        <a href="###">商家后台</a>
+                        <router-link to="/center">我的订单</router-link>
+                        <router-link to="/shopcart">我的购物车</router-link>
+                        <router-link to="/">我的尚品汇</router-link>
+                        <a href="javascript:;">尚品汇会员</a>
+                        <a href="javascript:;">企业采购</a>
+                        <a href="javascript:;">关注尚品汇</a>
+                        <a href="javascript:;">合作招商</a>
+                        <a href="javascript:;">商家后台</a>
                     </div>
                 </div>
             </div>
@@ -44,6 +51,8 @@
 </template>
 
 <script>
+import { removeToken } from '@/utils/token/user'
+import { mapState } from 'vuex'
 export default {
     name: 'MyHeader',
     data() {
@@ -78,7 +87,21 @@ export default {
                 })
             console.log(this.$route.params) */
         },
+        // 登出函数
+        async logout() {
+            try {
+                await this.$store.dispatch('user/logout')
+                // 清空本地token跳转首页
+                removeToken()
+                this.$router.replace('/home')
+            } catch (error) {
+                alert(error)
+            }
+        }
     },
+    computed: {
+        ...mapState('user', ['userInfo'])
+    }
 }
 </script>
 

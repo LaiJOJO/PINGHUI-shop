@@ -12,16 +12,20 @@ import store from "@/store/index.js";
 import "@/mock/mockServe.js";
 // 导入swiper样式
 import "swiper/css/swiper.css";
+// 导入element组件
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 // 全局注册组件
 Vue.component("TypeNav", TypeNav);
-Vue.component("MyCarousel",Carousel)
-Vue.component("MyPagination",Pagination)
+Vue.component("MyCarousel", Carousel)
+Vue.component("MyPagination", Pagination)
 
 new Vue({
   // 设置$bus
-  beforeCreate(){
+  beforeCreate() {
     Vue.prototype.$bus = this
   },
   render: (h) => h(App),

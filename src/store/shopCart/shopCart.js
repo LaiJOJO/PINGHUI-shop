@@ -75,6 +75,20 @@ const mutations = {
 const getters = {
   cartList(state) {
     return state.shopCart[0]?.cartInfoList || []
+  },
+  sumPrice(state){
+    if(!state.shopCart[0]?.cartInfoList) return []
+    let price = 0
+    state.shopCart[0]?.cartInfoList.forEach((item)=>{
+      price += item.skuPrice * item.skuNum
+    })
+    return price
+  },
+  sumCount(state){
+    if(!state.shopCart[0]?.cartInfoList) return 0
+    return state.shopCart[0]?.cartInfoList.filter((item)=>{
+      return item.isChecked
+    }).length
   }
 }
 

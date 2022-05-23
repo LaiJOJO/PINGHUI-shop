@@ -15,14 +15,20 @@ import detail from './datail/detailStore.js'
 import shopCart from "./shopCart/shopCart.js";
 // user用户信息仓库模块
 import user from './user/userStore.js'
+// 商品交易页面trade模块
+import trade from './trade/tradeStore.js'
+// 个人订单中心
+import center from './center/center.js'
 
 // 暴露实例化的vuex
 export default new Vuex.Store({
-  modules:{
+  modules: {
     home,
     search,
     detail,
     shopCart,
-    user
+    user,
+    trade,
+    center
   }
 })

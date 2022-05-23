@@ -8,6 +8,15 @@ import MySearch from "@/pages/Search/MySearch.vue";
 import MyDetail from "@/pages/Detail/MyDetail.vue";
 import MyAddShopSuccess from "@/pages/AddCartSuccess/AddShop.vue";
 import shopCart from "@/pages/ShopCart/ShopCart.vue";
+import MyTrade from "@/pages/trade/Trade.vue"
+import MyPay from "@/pages/pay/MyPay.vue"
+import PaySuccess from "@/pages/PaySuccess/PaySuccess.vue"
+import MyCenter from "@/pages/Center/MyCenter"
+import PersonCenter from "@/pages/Center/PersonCenter/PersonCenter.vue"
+import GroupCenter from "@/pages/Center/GroupCenter/GroupCenter.vue"
+// 导入仓库store,导航守卫要用
+import userStore from '@/store/user/userStore'
+import store from '@/store/index'
 
 Vue.use(VueRouter);
 
@@ -60,6 +69,42 @@ const routes = [
     name: "shopCart",
     meta: { show: true },
   },
+  {
+    path:'/trade',
+    component:MyTrade,
+    name:'trade',
+    meta:{show:true}
+  },
+  {
+    path:'/pay',
+    component:MyPay,
+    name:'pay',
+    meta:{show:true}
+  },
+  {
+    path:'/paysuccess',
+    component:PaySuccess,
+    name:'paySuccess',
+    meta:{show:true}
+  },
+  {
+    path:'/center',
+    component:MyCenter,
+    name:'center',
+    meta:{show:true},
+    redirect:'center/personcenter',
+    children:[
+      {
+        path:'personcenter',
+        component:PersonCenter,
+        name:'personCenter'
+      },
+      {
+        path:'groupcenter',
+        component:GroupCenter
+      }
+    ]
+  }
 ];
 
 // 重写路由的push方法，解决跳转报错问题，返回promise不设置回调会报错
@@ -104,5 +149,33 @@ const router = new VueRouter({
     return { y: 0 };
   },
 });
+
+// 全局路由导航守卫
+router.beforeEach(async (to, from, next) => {
+  let token = userStore.state.token
+  if (token) {
+    if (to.path === '/login' || to.path === '/register') {
+      next('/home')
+    } else {
+      // 有token，但没有用户信息，先请求再返回,刷新header的用户信息
+      if (userStore.state.userInfo.name) {
+        next()
+      } else {
+        try {
+          // 返回失败需要重新登录
+          await store.dispatch('user/getUserInfo')
+          next()
+        } catch (error) {
+          userStore.state.token = ''
+          alert('登录已过期,请重新登录')
+          next('/login')
+        }
+      }
+    }
+  } else (
+    next()
+  )
+}
+)
 
 export default router;

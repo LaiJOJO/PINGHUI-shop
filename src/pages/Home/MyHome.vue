@@ -27,6 +27,13 @@ import Brand from '@/pages/Home/Brand/Brand.vue'
 import { mapState } from 'vuex'
 export default {
   name: 'MyHome',
+  async created() {
+    try {
+      await this.$store.dispatch('user/getUserInfo')
+    } catch (error) {
+      return
+    }
+  },
   components: {
     ListContainer,
     TodayRecommend,

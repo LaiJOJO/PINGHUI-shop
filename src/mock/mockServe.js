@@ -4,8 +4,10 @@ import Mock from 'mockjs'
 import banner from './banner.json'
 import floor from './floor.json'
 import detail from './detail.json'
+import address from './address.json'
 
 // 3. 调用mock函数: 第一个参数--请求地址 ； 第二个参数--请求数据
 Mock.mock("/mock/banner",{code:200,data:banner})
 Mock.mock("/mock/floor",{code:200,data:floor})
 Mock.mock("/mock/detail",{code:200,data:detail})
+Mock.mock("/mock/address",{code:200,data:address})

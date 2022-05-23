@@ -63,3 +63,43 @@ export const reqPostRegister = (info) => {
 export const reqLogin = (user) => {
   return requests({ url: '/user/passport/login', method: 'POST', data: user })
 }
+
+// 13. 根据token验证用户信息
+export const reqGetUserInfo = () => {
+  return requests({url:'/user/passport/auth/getUserInfo',method:'GET'})
+}
+
+// 13. 根据请求头携带的token发送登出请求
+export const reqLogout = () => {
+  return requests({url:'/user/passport/logout',method:'GET'})
+}
+
+// 14. 发起交易页面请求
+export const reqTradeList = () => {
+  return requests({url:'/order/auth/trade',method:'GET'})
+}
+
+//  15. 发起mock模拟请求用户地址信息
+export const mockGetUserAddress = () => {
+  return mockAxios({ url: '/address', method: 'GET' })
+}
+
+//  16. 提交订单POST请求
+export const reqGetSubmitList = (tradeNo,listData)=>{
+  return requests({url:`/order/auth/submitOrder?tradeNo=${tradeNo}`,data:listData,method:'POST'})
+}
+
+//  17. 获取二维码get请求
+export const reqGetWechat = (orderId)=>{
+  return requests({url:`/payment/weixin/createNative/${orderId}`,method:'GET'})
+}
+
+// 18. 查询订单状态get方法
+export const reqGetListState = (orderId)=>{
+  return requests({url:`/payment/weixin/queryPayStatus/${orderId}`,method:'GET'})
+}
+
+// 19. 获取我的订单列表
+export const reqGetPersonCenter  = (page,limit)=>{
+  return requests({url:`/order/auth/${page}/${limit}`,method:'GET'})
+}

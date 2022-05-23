@@ -79,8 +79,6 @@ export default {
       if (!this.phone || !this.password) { return alert('请输入账号密码') }
       try {
         await this.$store.dispatch('user/login', { phone: this.phone, password: this.password })
-        // 保存本地token
-        localStorage.setItem('TOKEN',this.$store.state.user.token)
         this.$router.replace('/home')
       } catch (error) {
         alert(error)
