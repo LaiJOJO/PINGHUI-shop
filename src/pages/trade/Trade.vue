@@ -133,7 +133,7 @@ export default {
           message: '订单提交成功',
           type: 'success'
         });
-        this.$router.replace({ path: `/pay/?orderId=${res.data}` })
+        this.$router.replace({ path: `/pay?orderId=${res.data}` })
       } else {
         this.$alert(res.message)
       }

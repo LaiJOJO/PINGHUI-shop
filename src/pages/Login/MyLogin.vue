@@ -75,11 +75,12 @@ export default {
     }
   },
   methods: {
+    // 点击登录函数
     async login() {
       if (!this.phone || !this.password) { return alert('请输入账号密码') }
       try {
         await this.$store.dispatch('user/login', { phone: this.phone, password: this.password })
-        this.$router.replace('/home')
+        this.$router.replace(this.$route.query.redirect||'/home')
       } catch (error) {
         alert(error)
       }

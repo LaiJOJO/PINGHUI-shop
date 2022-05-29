@@ -70,38 +70,52 @@ const routes = [
     meta: { show: true },
   },
   {
-    path:'/trade',
-    component:MyTrade,
-    name:'trade',
-    meta:{show:true}
+    path: '/trade',
+    component: MyTrade,
+    name: 'trade',
+    meta: { show: true }
   },
   {
-    path:'/pay',
-    component:MyPay,
-    name:'pay',
-    meta:{show:true}
+    path: '/pay',
+    component: MyPay,
+    name: 'pay',
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path === '/trade') {
+        next()
+      } else {
+        next(false)
+      }
+    }
   },
   {
-    path:'/paysuccess',
-    component:PaySuccess,
-    name:'paySuccess',
-    meta:{show:true}
+    path: '/paysuccess',
+    component: PaySuccess,
+    name: 'paySuccess',
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path === '/pay') {
+        next()
+      } else {
+        next(false)
+      }
+    }
   },
   {
-    path:'/center',
-    component:MyCenter,
-    name:'center',
-    meta:{show:true},
-    redirect:'center/personcenter',
-    children:[
+    path: '/center',
+    component: MyCenter,
+    name: 'center',
+    meta: { show: true },
+    redirect: 'center/personcenter',
+    children: [
       {
-        path:'personcenter',
-        component:PersonCenter,
-        name:'personCenter'
+        path: 'personcenter',
+        component: PersonCenter,
+        name: 'personCenter'
       },
       {
-        path:'groupcenter',
-        component:GroupCenter
+        path: 'groupcenter',
+        component: GroupCenter
       }
     ]
   }
@@ -172,10 +186,16 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     }
-  } else (
-    next()
-  )
-}
-)
+  } else {
+    // 去的路径包含pay，trade等关键字则不允许跳转
+    if (to.path.indexOf('/center') !== -1 || to.path.indexOf('/pay') !== -1 || to.path.indexOf('/trade') !== -1) {
+      alert('请登录后查看')
+      next('/login/?redirect=' + to.path)
+    } else {
+      next()
+    }
+  }
+})
+
 
 export default router;

@@ -140,7 +140,7 @@ export default {
     },
     // 跳转支付成功页面
     paySuccess(orderId) {
-      this.$router.replace({ path: `/paysuccess/?orderId=${orderId}` })
+      this.$router.replace({ path: `/paysuccess?orderId=${orderId}` })
     },
     // 定时发起请求
     submitTimer(orderId) {

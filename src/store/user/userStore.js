@@ -11,8 +11,9 @@ const actions = {
     const res = await reqGetPassport(phone)
     if (res.code == 200) {
       context.commit('GETPASSPORT', res.data)
+      return Promise.resolve(res.data)
     } else {
-      alert('获取验证码失败！')
+      return Promise.reject(new Error('获取验证码失败！'))
     }
   },
   // 完成注册

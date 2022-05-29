@@ -9,30 +9,37 @@
       <form action="">
         <div class="content">
           <label>手机号:</label>
-          <input type="text" name="phone" placeholder="请输入你的手机号" v-model="phone">
-          <span class="error-msg">错误提示信息</span>
+          <!-- name和规则的attribute属性对应，则接收到的错误信息的field值会替换成attributes的属性值 -->
+          <!-- v-validate能指定内部的校验规则 -->
+          <input type="text" name="phone" placeholder="请输入你的手机号" v-model="phone"
+            v-validate="{ required: true, regex: /^1\d{10}$/ }" :class="{ invalid: errors.has('phone') }">
+          <!-- errors.first展示当前name的首条错误校验值 -->
+          <span class="error-msg">{{ errors.first('phone') }}</span>
         </div>
         <div class="content">
           <label>验证码:</label>
-          <input type="text" name="passport" placeholder="请输入验证码" v-model="passport">
+          <input type="text" name="code" placeholder="请输入你的验证码" v-model="code"
+            v-validate="{ required: true, regex: /^\d{6}$/ }" :class="{ invalid: errors.has('code') }">
           <button class="btn" style="cursor:pointer;" @click.prevent="getPassPort">获取验证码</button>
-          <span class="error-msg">错误提示信息</span>
+          <span class="error-msg">{{ errors.first('code') }}</span>
         </div>
         <div class="content">
           <label>登录密码:</label>
-          <input type="password" name="password" autocomplete="off" placeholder="请输入你的登录密码" v-model="password">
-          <span class="error-msg">错误提示信息</span>
+          <input type="text" name="password" placeholder="请输入密码" v-model="password"
+            v-validate="{ required: true, regex: /[0-9a-zA-Z]{6,}/ }" :class="{ invalid: errors.has('password') }">
+          <span class="error-msg">{{errors.first('password')}}</span>
         </div>
         <div class="content">
           <label>确认密码:</label>
-          <input name="password" type="password" autocomplete="off" placeholder="请输入确认密码" v-model="password">
-          <span class="error-msg">错误提示信息</span>
+          <input type="text" name="password1" placeholder="请确认密码" v-model="password1"
+            v-validate="{ required: true,is:password }" :class="{ invalid: errors.has('password1') }">
+          <span class="error-msg">{{errors.first('password1')}}</span>
         </div>
       </form>
       <div class="controls">
-        <input name="m1" type="checkbox" v-model="isChecked">
+        <input name="isCheck" type="checkbox" v-model="isChecked" v-validate="{ required: true,isCheck:true} " :class="{ invalid: errors.has('isCheck') }" >
         <span>同意协议并注册《尚品汇用户协议》</span>
-        <span class="error-msg">错误提示信息</span>
+        <span class="error-msg">{{errors.first('isCheck')}}</span>
       </div>
       <div class="btn">
         <button @click="register" style="cursor:pointer;">完成注册</button>
@@ -60,23 +67,31 @@
 
 <script>
 import { mapState } from 'vuex'
-
 export default {
   name: 'MyRegister',
   data() {
     return {
       phone: 13579246801,
-      password: 123,
-      isChecked: true
+      password: '',
+      isChecked: true,
+      code:'',
+      password1:'',
     }
   },
   methods: {
     // 获取验证码
-    getPassPort() {
-      this.$store.dispatch('user/getPassPort', this.phone)
+    async getPassPort() {
+      try {
+        let passport = await this.$store.dispatch('user/getPassPort', this.phone)
+        this.code = passport
+      } catch (error) {
+        alert(error)
+      }
     },
     // 完成注册
     async register(e) {
+      const success = await this.$validator.validateAll()
+      if(!success) return 
       try {
         if (!this.isChecked) {
           return alert('请勾选同意协议!')
@@ -90,10 +105,10 @@ export default {
         alert(error)
         e.target.disabled = false
       }
-    }
+    },
   },
   computed: {
-    ...mapState('user', ['passport'])
+    ...mapState('user', ['passport']),
   }
 }
 </script>

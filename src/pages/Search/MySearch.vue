@@ -54,7 +54,7 @@
                   <div class="p-img">
                     <!-- 商品图片，点击跳转detail页面 -->
                     <router-link :to="'/detail/' + good.id">
-                      <img :src="good.defaultImg" style="width:100%;" />
+                      <img v-lazy="good.defaultImg" style="width:100%;" />
                     </router-link>
                   </div>
                   <div class="price">

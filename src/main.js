@@ -15,6 +15,12 @@ import "swiper/css/swiper.css";
 // 导入element组件
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+// 懒加载组件
+import '@/plugins/lazyLoad/lazyLoad'
+import MySearch from '@/pages/Search/MySearch'
+//验证组件
+import '@/plugins/veeValidate/veeValidate'
+
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
@@ -31,4 +37,7 @@ new Vue({
   render: (h) => h(App),
   store,
   router,
+  components:{
+    MySearch
+  }
 }).$mount("#app");
