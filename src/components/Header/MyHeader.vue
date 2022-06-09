@@ -34,7 +34,7 @@
             <!--头部第二行 搜索区域-->
             <div class="bottom">
                 <h1 class="logoArea">
-                    <router-link to="/" class="logo" title="尚品汇" target="_blank">
+                    <router-link to="/" class="logo" title="尚品汇">
                         <img src="./images/logo.png" alt="">
                     </router-link>
                 </h1>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { removeToken } from '@/utils/token/user'
+import { removeToken } from '../../utils/token/user'
 import { mapState } from 'vuex'
 export default {
     name: 'MyHeader',

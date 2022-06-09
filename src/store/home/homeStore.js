@@ -1,5 +1,5 @@
 // 发送请求，获取数据，放到home仓库管理
-import {reqCategoryList,reqGetBannerList,reqFloorList} from '@/api/index.js'
+import {reqCategoryList,reqGetBannerList,reqFloorList} from '../../api/index.js'
 
 // home模块，需要暴露对象
 const actions = {

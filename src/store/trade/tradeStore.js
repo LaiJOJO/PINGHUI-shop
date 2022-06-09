@@ -1,4 +1,4 @@
-import { reqTradeList, mockGetUserAddress } from "@/api"
+import { reqTradeList, mockGetUserAddress } from "../../api"
 const state = {
   tradeList: [],
   userAddressList: [],

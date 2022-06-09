@@ -96,7 +96,7 @@
 <script>
 import {throttle} from 'lodash'
 import { mapGetters, mapState } from 'vuex'
-import { reqGetSubmitList } from '@/api/index.js'
+import { reqGetSubmitList } from '../../api/index.js'
 export default {
   name: 'MyTrade',
   data() {

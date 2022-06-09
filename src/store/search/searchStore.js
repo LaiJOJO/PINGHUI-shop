@@ -1,5 +1,5 @@
 // 导入请求searchList请求模块
-import { reqSearchList } from "@/api/index";
+import { reqSearchList } from "../../api/index.js";
 
 const actions = {
   async getSearchList(context, params = {}) {

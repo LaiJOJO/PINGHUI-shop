@@ -1,5 +1,5 @@
-import { reqGetPassport, reqPostRegister, reqLogin, reqGetUserInfo, reqLogout } from '@/api/index.js'
-import { getToken, removeToken, saveToken } from '@/utils/token/user'
+import { reqGetPassport, reqPostRegister, reqLogin, reqGetUserInfo, reqLogout } from '../../api/index.js'
+import { getToken, removeToken, saveToken } from '../../utils/token/user'
 const state = {
   passport: '',
   token: getToken(),

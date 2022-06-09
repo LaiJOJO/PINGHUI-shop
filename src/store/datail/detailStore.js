@@ -1,5 +1,5 @@
-import { reqDeatailList ,reqAddShopSuccess} from "@/api";
-import {getUserUuid} from '@/utils/userUUID/uuid.js'
+import { reqDeatailList ,reqAddShopSuccess} from "../../api";
+import {getUserUuid} from '../../utils/userUUID/uuid.js'
 
 const actions = {
   // 接收发布的获取detail数据事件

@@ -4,8 +4,8 @@ import nprogress from 'nprogress'
 // 导入对应样式
 import 'nprogress/nprogress.css'
 // 直接导入store仓库，暴力获取detail组件的state下的游客信息
-import store from '@/store/datail/detailStore'
-import userStore from '@/store/user/userStore'
+import store from '../store/datail/detailStore'
+import userStore from '../store/user/userStore'
 
 // 实例化axios，配置默认选项
 const requests = axios.create({

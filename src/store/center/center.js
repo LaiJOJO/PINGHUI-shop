@@ -1,4 +1,4 @@
-import { reqGetPersonCenter } from "@/api"
+import { reqGetPersonCenter } from "../../api"
 const state = {
   personCenter:{}
 }

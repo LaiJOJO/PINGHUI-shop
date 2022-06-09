@@ -1,4 +1,4 @@
-import { reqShopCart, reqAddShopSuccess, reqDelShopCart, reqCheckShopCart } from "@/api"
+import { reqShopCart, reqAddShopSuccess, reqDelShopCart, reqCheckShopCart } from "../../api"
 const state = {
   shopCart: []
 }

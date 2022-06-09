@@ -1,22 +1,22 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 // 组件
-import MyHome from "@/pages/Home/MyHome.vue";
-import MyLogin from "@/pages/Login/MyLogin.vue";
-import MyRegister from "@/pages/Register/MyRegister.vue";
-import MySearch from "@/pages/Search/MySearch.vue";
-import MyDetail from "@/pages/Detail/MyDetail.vue";
-import MyAddShopSuccess from "@/pages/AddCartSuccess/AddShop.vue";
-import shopCart from "@/pages/ShopCart/ShopCart.vue";
-import MyTrade from "@/pages/trade/Trade.vue"
-import MyPay from "@/pages/pay/MyPay.vue"
-import PaySuccess from "@/pages/PaySuccess/PaySuccess.vue"
-import MyCenter from "@/pages/Center/MyCenter"
-import PersonCenter from "@/pages/Center/PersonCenter/PersonCenter.vue"
-import GroupCenter from "@/pages/Center/GroupCenter/GroupCenter.vue"
+import MyHome from "../pages/Home/MyHome.vue";
+import MyLogin from "../pages/Login/MyLogin.vue";
+import MyRegister from "../pages/Register/MyRegister.vue";
+import MySearch from "../pages/Search/MySearch.vue";
+import MyDetail from "../pages/Detail/MyDetail.vue";
+import MyAddShopSuccess from "../pages/AddCartSuccess/AddShop.vue";
+import shopCart from "../pages/ShopCart/ShopCart.vue";
+import MyTrade from "../pages/trade/Trade.vue"
+import MyPay from "../pages/pay/MyPay.vue"
+import PaySuccess from "../pages/PaySuccess/PaySuccess.vue"
+import MyCenter from "../pages/Center/MyCenter"
+import PersonCenter from "../pages/Center/PersonCenter/PersonCenter.vue"
+import GroupCenter from "../pages/Center/GroupCenter/GroupCenter.vue"
 // 导入仓库store,导航守卫要用
-import userStore from '@/store/user/userStore'
-import store from '@/store/index'
+import userStore from '../store/user/userStore'
+import store from '../store/index'
 
 Vue.use(VueRouter);
 

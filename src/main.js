@@ -1,25 +1,25 @@
 import Vue from "vue";
 import App from "./App.vue";
 // 导入路由
-import router from "@/router/router.js";
+import router from "./router/router.js";
 // 全局导入需要多次使用的导航组件
-import TypeNav from "@/components/TypeNav/TypeNav.vue";
-import Carousel from "@/components/Carousel/Carousel.vue"
-import Pagination from "@/components/Pagination/MyPagination.vue"
+import TypeNav from "./components/TypeNav/TypeNav.vue";
+import Carousel from "./components/Carousel/Carousel.vue"
+import Pagination from "./components/Pagination/MyPagination.vue"
 // 导入vuex全局渲染使用
-import store from "@/store/index.js";
+import store from "./store/index.js";
 // 引入mock文件模拟数据
-import "@/mock/mockServe.js";
+import "./mock/mockServe.js";
 // 导入swiper样式
 import "swiper/css/swiper.css";
 // 导入element组件
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // 懒加载组件
-import '@/plugins/lazyLoad/lazyLoad'
-import MySearch from '@/pages/Search/MySearch'
+import './plugins/lazyLoad/lazyLoad'
+import MySearch from './pages/Search/MySearch'
 //验证组件
-import '@/plugins/veeValidate/veeValidate'
+import './plugins/veeValidate/veeValidate'
 
 Vue.use(ElementUI);
 

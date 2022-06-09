@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { reqGetListState, reqGetWechat } from '@/api/index.js'
+import { reqGetListState, reqGetWechat } from '../../api/index.js'
 import QRCode from 'qrcode'
 export default {
   name: 'MyPay',
