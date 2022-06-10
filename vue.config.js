@@ -1,5 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
+  outputDir:'dist',
+  publicPath: process.env.NODE_ENV === 'production' ? '/pinhui-shop-web/' : '/',
   transpileDependencies: true,
   lintOnSave:false,
   devServer:{
