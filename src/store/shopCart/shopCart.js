@@ -80,7 +80,9 @@ const getters = {
     if(!state.shopCart[0]?.cartInfoList) return []
     let price = 0
     state.shopCart[0]?.cartInfoList.forEach((item)=>{
-      price += item.skuPrice * item.skuNum
+      if(item.isChecked){
+        price += item.skuPrice * item.skuNum
+      }
     })
     return price
   },

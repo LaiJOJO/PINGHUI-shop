@@ -1,4 +1,5 @@
 <template>
+  <!-- <h1>首页{{ page.start }}--当前页面{{ pageNo }}--尾页{{ page.end }}</h1> -->
   <div class="pagination">
     <button :disabled="pageNo == 1" @click="sendPageNo(pageNo - 1)">上一页</button>
     <!-- 用start页面进行判断，用当前pageNo无法判断容量 -->
@@ -11,12 +12,12 @@
 
     <!-- 用容量和尾页的差距判断是否需要显示尾页 -->
     <button v-if="pageCount - page.end > 1">···</button>
-    <button v-if="pageCount > page.end" @click="sendPageNo(pageCount)"
-      :class="pageNo == pageCount ? 'active' : ''">{{ pageCount }}</button>
+    <button v-if="pageCount > page.end" @click="sendPageNo(pageCount)" :class="pageNo == pageCount ? 'active' : ''">{{
+        pageCount
+    }}</button>
     <button :disabled="pageNo == pageCount" @click="sendPageNo(pageNo + 1)">下一页</button>
     <button style="margin-left: 30px">共 {{ pageCount }} 页</button>
     <button style="margin-left: 30px">共 {{ total }} 条</button>
-    <!-- <h1>首页{{ page.start }}--当前页面{{ pageNo }}--尾页{{ page.end }}</h1> -->
   </div>
 </template>
 

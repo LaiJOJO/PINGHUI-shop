@@ -71,7 +71,7 @@ export default {
   name: 'MyRegister',
   data() {
     return {
-      phone: 13579246801,
+      phone: '',
       password: '',
       isChecked: true,
       code:'',
