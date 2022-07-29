@@ -1,19 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// 组件
-import MyHome from "../pages/Home/MyHome.vue";
-import MyLogin from "../pages/Login/MyLogin.vue";
-import MyRegister from "../pages/Register/MyRegister.vue";
-import MySearch from "../pages/Search/MySearch.vue";
-import MyDetail from "../pages/Detail/MyDetail.vue";
-import MyAddShopSuccess from "../pages/AddCartSuccess/AddShop.vue";
-import shopCart from "../pages/ShopCart/ShopCart.vue";
-import MyTrade from "../pages/trade/Trade.vue"
-import MyPay from "../pages/pay/MyPay.vue"
-import PaySuccess from "../pages/PaySuccess/PaySuccess.vue"
-import MyCenter from "../pages/Center/MyCenter"
-import PersonCenter from "../pages/Center/PersonCenter/PersonCenter.vue"
-import GroupCenter from "../pages/Center/GroupCenter/GroupCenter.vue"
 // 导入仓库store,导航守卫要用
 import userStore from '../store/user/userStore'
 import store from '../store/index'
@@ -26,25 +12,25 @@ const routes = [
   // 路由规则
   {
     path: "/home",
-    component: MyHome,
+    component: () => import("../pages/Home/MyHome.vue"),
     meta: { show: true },
   },
 
   {
     path: "/login",
-    component: MyLogin,
+    component: () => import("../pages/Login/MyLogin.vue"),
     meta: { show: false },
   },
 
   {
     path: "/register",
-    component: MyRegister,
+    component: () => import("../pages/Register/MyRegister.vue"),
     meta: { show: false },
   },
 
   {
     path: "/search/:keyword?",
-    component: MySearch,
+    component: () => import("../pages/Search/MySearch.vue"),
 
     name: "search",
     meta: { show: true },
@@ -52,32 +38,32 @@ const routes = [
 
   {
     path: "/detail/:skuId",
-    component: MyDetail,
+    component: () => import("../pages/Detail/MyDetail.vue"),
     meta: { show: true },
   },
 
   {
     path: "/addcartsuccess",
-    component: MyAddShopSuccess,
+    component: () => import("../pages/AddCartSuccess/AddShop.vue"),
     name: "addCartSuccess",
     meta: { show: true },
   },
 
   {
     path: "/shopcart",
-    component: shopCart,
+    component: () => import("../pages/ShopCart/ShopCart.vue"),
     name: "shopCart",
     meta: { show: true },
   },
   {
     path: '/trade',
-    component: MyTrade,
+    component: () => import("../pages/trade/Trade.vue"),
     name: 'trade',
     meta: { show: true }
   },
   {
     path: '/pay',
-    component: MyPay,
+    component: () => import("../pages/pay/MyPay.vue"),
     name: 'pay',
     meta: { show: true },
     beforeEnter: (to, from, next) => {
@@ -90,7 +76,7 @@ const routes = [
   },
   {
     path: '/paysuccess',
-    component: PaySuccess,
+    component: () => import("../pages/PaySuccess/PaySuccess.vue"),
     name: 'paySuccess',
     meta: { show: true },
     beforeEnter: (to, from, next) => {
@@ -103,19 +89,19 @@ const routes = [
   },
   {
     path: '/center',
-    component: MyCenter,
+    component: () => import("../pages/Center/MyCenter"),
     name: 'center',
     meta: { show: true },
     redirect: 'center/personcenter',
     children: [
       {
         path: 'personcenter',
-        component: PersonCenter,
+        component: () => import("../pages/Center/PersonCenter/PersonCenter.vue"),
         name: 'personCenter'
       },
       {
         path: 'groupcenter',
-        component: GroupCenter
+        component: () => import("../pages/Center/GroupCenter/GroupCenter.vue")
       }
     ]
   }

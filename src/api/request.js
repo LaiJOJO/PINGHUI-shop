@@ -9,7 +9,7 @@ import userStore from '../store/user/userStore'
 
 // 实例化axios，配置默认选项
 const requests = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://gmall-h5-api.atguigu.cn/api',
   timeout: 5000
 })
 
