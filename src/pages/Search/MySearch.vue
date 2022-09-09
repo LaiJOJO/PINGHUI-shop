@@ -70,7 +70,7 @@
                     <i class="command">已有<span>{{ good.hotScore }}</span>人评价</i>
                   </div>
                   <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                    <a href="javascript:;" class="sui-btn btn-bordered btn-danger" @click="addShopCart(good.id)">加入购物车</a>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>
@@ -89,6 +89,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import SearchSelector from './SearchSelector/SearchSelector'
+import throttle from 'lodash/throttle.js'
 export default {
   data() {
     return {
@@ -129,6 +130,7 @@ export default {
   computed: {
     ...mapState({ searchList: state => state.search.SearchList }),
     ...mapGetters({ goodsList: 'search/goodsList', attrsList: 'search/attrsList', trademarkList: 'search/trademarkList' }),
+    ...mapGetters({ categoryView: 'detail/categoryView', skuInfo: 'detail/skuInfo', spuSaleAttrList: 'detail/spuSaleAttrList' }),
     // 判断当前排序是综合1还是价格2，是升序asc还是降序desc
     isOne() {
       return this.searchParams.order.split(':')[0] == 1
@@ -142,8 +144,12 @@ export default {
   },
   methods: {
     // 封装发送vuex事件函数
-    getData() {
-      this.$store.dispatch('search/getSearchList', this.searchParams)
+    async getData() {
+      try {
+        await this.$store.dispatch('search/getSearchList', this.searchParams)
+      } catch (error) {
+        this.$message(String(error))
+      }
     },
     // 面包屑关键词删除函数
     removeCategoryName() {
@@ -220,7 +226,22 @@ export default {
     getPageNo(pageNo) {
       this.searchParams.pageNo = pageNo
       this.getData()
-    }
+    },
+    //直接添加购物车
+    addShopCart:throttle(async function (skuId){
+      try {
+        await this.$store.dispatch('detail/getDatailList', skuId)
+        await this.$store.dispatch('detail/addShopSuccess', { skuNum: 1, skuId: skuId})
+        // 复杂数据转存到本地，单页面session就行 ； 简单数据query进行传递
+        window.sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo))
+
+        // 返回成功的Promise就跳转
+        this.$router.push({ name: 'addCartSuccess', query: { skuNum: 1 } })
+      }
+      catch (err) {
+        this.$message(String(err));
+      }
+    },3000)
   },
   watch: {
     // 监听每一次path的路径变化fullpath，由于每次点击都会变化，不需要深度监听

@@ -114,7 +114,7 @@ export default {
       try {
         await this.$store.dispatch('trade/getTradeList')
       } catch (error) {
-        alert(error)
+        this.$message(String(error))
       }
     },
    submitList:throttle(async function() {

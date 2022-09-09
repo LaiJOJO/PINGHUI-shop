@@ -58,33 +58,38 @@
         <li>销售联盟</li>
         <li>尚品汇社区</li>
       </ul>
-      <div class="address">地址：北京市昌平区宏福科技园综合楼6层</div>
-      <div class="beian">京ICP备19006430号
+      <div class="address">地址：广东省广州市天河区五山路泰山高级公寓</div>
+      <div class="beian">粤ICP备19006430号
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import throttle from 'lodash/throttle.js'
 export default {
   name: 'MyLogin',
   data() {
     return {
-      phone: '13579246801',
-      password: '123',
+      phone: '13579246809',
+      password: '123456',
     }
   },
   methods: {
     // 点击登录函数
-    async login() {
-      if (!this.phone || !this.password) { return alert('请输入账号密码') }
+    login: throttle(async function () {
+      if (!this.phone || !this.password) { return alert('请输入账号和密码') }
       try {
         await this.$store.dispatch('user/login', { phone: this.phone, password: this.password })
-        this.$router.replace(this.$route.query.redirect||'/home')
+        this.$message({
+          message: '登录成功',
+          type: 'success'
+        });
+        this.$router.replace(this.$route.query.redirect || '/home')
       } catch (error) {
-        alert(error)
+        this.$message.error(String(error));
       }
-    }
+    },3000)
   },
 }
 </script>

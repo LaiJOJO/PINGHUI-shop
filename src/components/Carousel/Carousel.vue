@@ -2,7 +2,7 @@
   <div class="swiper-container" ref="mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide" v-for="crousel in list" :key="crousel.id">
-        <img :src="crousel.imgUrl" />
+        <img width="100%" :src="crousel.imgUrl" />
       </div>
     </div>
     <!-- 如果需要分页器 -->

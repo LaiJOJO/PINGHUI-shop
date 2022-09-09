@@ -77,7 +77,7 @@ const getters = {
     return state.shopCart[0]?.cartInfoList || []
   },
   sumPrice(state){
-    if(!state.shopCart[0]?.cartInfoList) return []
+    if(!state.shopCart[0]?.cartInfoList) return 0
     let price = 0
     state.shopCart[0]?.cartInfoList.forEach((item)=>{
       if(item.isChecked){

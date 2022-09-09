@@ -1,3 +1,5 @@
+// 辅助ele UI表单验证
+import 'default-passive-events'
 import Vue from "vue";
 import App from "./App.vue";
 // 导入路由

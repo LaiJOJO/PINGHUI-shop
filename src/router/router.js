@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 // 导入仓库store,导航守卫要用
 import userStore from '../store/user/userStore'
 import store from '../store/index'
+import { MessageBox } from 'element-ui'
 
 Vue.use(VueRouter);
 
@@ -167,16 +168,25 @@ router.beforeEach(async (to, from, next) => {
           next()
         } catch (error) {
           userStore.state.token = ''
-          alert('登录已过期,请重新登录')
-          next('/login')
+          MessageBox.alert('登录已过期,请重新登录', 'Tips', {
+            confirmButtonText: '点击前往登录页面',
+            callback: () => {
+              next('/login')
+            }
+          });
         }
       }
     }
   } else {
     // 去的路径包含pay，trade等关键字则不允许跳转
     if (to.path.indexOf('/center') !== -1 || to.path.indexOf('/pay') !== -1 || to.path.indexOf('/trade') !== -1) {
-      alert('请登录后查看')
-      next('/login/?redirect=' + to.path)
+      // alert('请登录后查看')
+      MessageBox.alert('请登录后查看', 'Tips', {
+        confirmButtonText: '点击前往登录页面',
+        callback: () => {
+          next('/login/?redirect=' + to.path)
+        }
+      });
     } else {
       next()
     }

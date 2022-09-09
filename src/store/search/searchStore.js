@@ -2,12 +2,12 @@
 import { reqSearchList } from "../../api/index.js";
 
 const actions = {
-  async getSearchList(context, params = {}) {
+  async getSearchList(context, params = {}) { 
     const res = await reqSearchList(params);
     if (res.code === 200) {
       context.commit("GETSEARCHLIST", res.data);
     } else {
-      alert("获取信息失败");
+      return Promise.reject(new Error('暂无相关信息，请重新选择!'))
     }
   },
 };

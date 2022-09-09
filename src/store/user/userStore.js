@@ -20,7 +20,7 @@ const actions = {
   async register(context, info) {
     const res = await reqPostRegister(info)
     if (res.code == 200) {
-      return '注册成功'
+      return Promise.resolve('注册成功')
     } else {
       return Promise.reject(new Error(res.message))
     }
@@ -32,8 +32,9 @@ const actions = {
       // 保存本地token
       saveToken(res.data.token)
       context.commit('LOGIN', res.data)
+      return ('登录成功')
     } else {
-      return Promise.reject(new Error(res.message))
+      return Promise.reject(new Error('账号或密码不正确!'))
     }
   },
   // 验证用户数据
@@ -55,7 +56,7 @@ const actions = {
       // 清空仓库token和userInfo
       context.state.token = ''
       context.state.userInfo = {}
-      return '退出成功'
+      return '已退出登录'
     } else {
       return Promise.reject(new Error(res.message))
     }

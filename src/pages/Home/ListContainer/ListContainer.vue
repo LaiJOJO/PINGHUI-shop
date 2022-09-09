@@ -10,7 +10,7 @@
                 <div class="right">
                     <div class="news">
                         <h4>
-                            <em class="fl">尚品汇快报</em>
+                            <em class="fl">PINGHUI今日快报</em>
                             <span class="fr tip">更多 ></span>
                         </h4>
                         <div class="clearix"></div>
@@ -19,16 +19,16 @@
                                 <span class="bold">[特惠]</span>备战开学季 全民半价购数码
                             </li>
                             <li>
-                                <span class="bold">[公告]</span>备战开学季 全民半价购数码
+                                <span class="bold">[公告]</span>新品发售 超低价抢购首发
                             </li>
                             <li>
-                                <span class="bold">[特惠]</span>备战开学季 全民半价购数码
+                                <span class="bold">[购物节]</span>双11特惠 全民享受半价优惠
                             </li>
                             <li>
-                                <span class="bold">[公告]</span>备战开学季 全民半价购数码
+                                <span class="bold">[折扣]</span>抢卷享折扣 打折shop shop shop!
                             </li>
                             <li>
-                                <span class="bold">[特惠]</span>备战开学季 全民半价购数码
+                                <span class="bold">[推荐]</span>为您推荐您最喜爱的产品
                             </li>
                         </ul>
                     </div>

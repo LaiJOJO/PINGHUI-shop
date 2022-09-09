@@ -65,7 +65,7 @@
           <i class="summoney">{{sumPrice}}</i>
         </div>
         <div class="sumbtn">
-          <router-link class="sum-btn" to="/trade">结算</router-link>
+          <button class="sum-btn" @click="sumBtn">结算</button>
         </div>
       </div>
     </div>
@@ -115,7 +115,7 @@ export default {
               if (!isNum) {
                 // 不符合直接刷新就行
                 this.goodAmount = oldSkuNum
-                alert('请输入1~99的整数数')
+                this.$message('请输入1~99的整数数')
               } else {
                 await this.$store.dispatch('shopCart/updateShopCart', { 'skuId': skuId, 'skuNum': (event.target.value - oldSkuNum) })
               }
@@ -123,10 +123,10 @@ export default {
             })()
             break
 
-          default: alert('请重新输入！')
+          default: this.$message('请重新输入！')
         }
       } catch (error) {
-        alert('操作失败！请重新操作！')
+        this.$message('操作失败！请重新操作！')
       }
     }, 1500),
     // 删除商品按钮
@@ -137,7 +137,7 @@ export default {
         if (this.timer[String(skuId)] == null) { delete this.timer[String(skuId)] }
         this.getCartList()
       } catch (error) {
-        alert('操作失败！')
+        this.$message('操作失败！')
       }
 
     },
@@ -147,7 +147,7 @@ export default {
         await this.$store.dispatch('shopCart/delAllShopCart')
         this.getCartList()
       } catch (error) {
-        alert(error)
+        this.$message(String(error))
       }
     },
     // 切换商品选中状态按钮
@@ -167,14 +167,14 @@ export default {
         } catch (error) {
           _this.getCartList()
           event.target.disabled = false
-          alert('修改失败!')
+          this.$message('修改失败!')
         }
         _this.timer[String(skuId)] = null
       }, 500)
 
 
     },
-    // 全选按钮
+    // 全选按钮,选中全部商品
     async allIsChecked(e) {
       let _this = this
       if (this.alltimer) return
@@ -188,15 +188,25 @@ export default {
         } catch (error) {
           await _this.getCartList()
           e.target.disabled = false
-          alert(error)
+          this.$message(String(error))
         }
       }, 1000)
+    },
+    // 结算按钮
+    sumBtn(){
+      if(this.sumPrice ==0){
+        return
+      }
+      this.$router.push('/trade')
     }
   },
   computed: {
     ...mapGetters({ cartList: 'shopCart/cartList' ,sumPrice:'shopCart/sumPrice',sumCount:'shopCart/sumCount'}),
     // 遍历数组，判断全选
     allChecked() {
+      if(this.cartList.length==0){
+        return false
+      }
       return this.cartList.every(item => { return item.isChecked })
     },
   },
@@ -395,7 +405,8 @@ export default {
       .sumbtn {
         float: right;
 
-        a {
+        .sum-btn {
+          cursor: pointer;
           display: block;
           position: relative;
           width: 96px;
@@ -407,6 +418,7 @@ export default {
           font-family: "Microsoft YaHei";
           background: #e1251b;
           overflow: hidden;
+          border: 0px;
         }
       }
     }

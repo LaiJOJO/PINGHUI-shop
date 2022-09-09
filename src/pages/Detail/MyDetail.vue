@@ -75,12 +75,13 @@
             <div class="cartWrap">
               <div class="controls">
                 <input autocomplete="off" class="itxt" v-model.number="goodAmount" @blur="getGoodAmount">
-                <a href="javascript:" class="plus" @click="goodAmount = goodAmount < 99 ? goodAmount + 1 : goodAmount">+</a>
+                <a href="javascript:" class="plus"
+                  @click="goodAmount = goodAmount < 99 ? goodAmount + 1 : goodAmount">+</a>
                 <a href="javascript:" class="mins"
                   @click="goodAmount = goodAmount > 1 ? goodAmount - 1 : goodAmount">-</a>
               </div>
               <div class="add">
-                <a href="javascript:" @click="addShop">加入购物车</a>
+                <a href="javascript:;" @click="addShop">加入购物车</a>
               </div>
             </div>
           </div>
@@ -340,7 +341,7 @@ export default {
   data() {
     return {
       goodAmount: 1,
-      mySkuAttr:{}
+      mySkuAttr: {}
     }
   },
 
@@ -368,25 +369,26 @@ export default {
       curAttr.isChecked = 1
     },
     // 输入框值判断修改,正则判断
-    getGoodAmount(){
+    getGoodAmount() {
       let goodNum = /^[1-9][1-9]?$/
       let isNum = String(this.goodAmount).match(goodNum)
-      if(!isNum){
+      if (!isNum) {
         this.goodAmount = 1
         alert('请输入1~99的数值')
       }
     },
     // 发布提交商品事件函数
-    async addShop(){
-      try {await this.$store.dispatch('detail/addShopSuccess',{skuNum:this.goodAmount,skuId:this.skuInfo.id})
-      // 复杂数据转存到本地，单页面session就行 ； 简单数据query进行传递
-      window.sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo))
+    async addShop() {
+      try {
+        await this.$store.dispatch('detail/addShopSuccess', { skuNum: this.goodAmount, skuId: this.skuInfo.id })
+        // 复杂数据转存到本地，单页面session就行 ； 简单数据query进行传递
+        window.sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo))
 
-      // 返回成功的Promise就跳转
-      this.$router.push({name:'addCartSuccess',query:{skuNum:this.goodAmount}})
+        // 返回成功的Promise就跳转
+        this.$router.push({ name: 'addCartSuccess', query: { skuNum: this.goodAmount } })
       }
-      catch(err){
-        alert('添加失败!')
+      catch (err) {
+        this.$message(String(err));
       }
     }
   },

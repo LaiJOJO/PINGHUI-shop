@@ -30,7 +30,7 @@
         <div class="step-cont">
           <ul class="payType">
             <li><img src="./images/pay2.jpg"></li>
-            <li><img src="./images/pay3.jpg"></li>
+            <li style="border:1px solid red;"><img src="./images/pay3.jpg"></li>
           </ul>
 
         </div>
@@ -107,7 +107,7 @@ export default {
     },
     open(imgWechat, orderId) {
       this.$confirm(`<img src=${imgWechat} />`, '微信支付', {
-        confirmButtonText: '已完成支付',
+        confirmButtonText: '点击完成支付，也欢迎扫描二维码付费体验',
         cancelButtonText: '取消支付',
         dangerouslyUseHTMLString: true,
         center: true

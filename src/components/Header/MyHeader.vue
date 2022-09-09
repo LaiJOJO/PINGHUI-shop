@@ -5,7 +5,7 @@
             <div class="top">
                 <div class="container">
                     <div class="loginList">
-                        <p>尚品汇欢迎您！</p>
+                        <p>jojo商城欢迎您!</p>
                         <p v-if="userInfo.name">
                             <span>用户 : {{ userInfo.name }}</span>
                             &nbsp;
@@ -22,10 +22,10 @@
                     <div class="typeList">
                         <router-link to="/center">我的订单</router-link>
                         <router-link to="/shopcart">我的购物车</router-link>
-                        <router-link to="/">我的尚品汇</router-link>
-                        <a href="javascript:;">尚品汇会员</a>
+                        <router-link to="/">我的PINGHUI</router-link>
+                        <a href="javascript:;">PINGHUI会员</a>
                         <a href="javascript:;">企业采购</a>
-                        <a href="javascript:;">关注尚品汇</a>
+                        <a href="javascript:;">关注PINGHUI</a>
                         <a href="javascript:;">合作招商</a>
                         <a href="javascript:;">商家后台</a>
                     </div>
@@ -34,8 +34,8 @@
             <!--头部第二行 搜索区域-->
             <div class="bottom">
                 <h1 class="logoArea">
-                    <router-link to="/" class="logo" title="尚品汇">
-                        <img src="./images/logo.png" alt="">
+                    <router-link to="/" class="logo" title="点击返回首页">
+                        PINGHUI
                     </router-link>
                 </h1>
                 <div class="searchArea">
@@ -61,7 +61,6 @@ export default {
         }
     },
     mounted() {
-
         // 渲染完毕后接收事件清空输入框
         this.$bus.$on('clear', () => {
             this.searchContain = ''
@@ -90,12 +89,20 @@ export default {
         // 登出函数
         async logout() {
             try {
-                await this.$store.dispatch('user/logout')
+                const res = await this.$store.dispatch('user/logout')
                 // 清空本地token跳转首页
                 removeToken()
-                this.$router.replace('/home')
+                this.$alert(String(res), 'Tips', {
+                    confirmButtonText: '点击返回首页',
+                    callback: () => {
+                        this.$router.replace('/home')
+                    }
+                });
             } catch (error) {
-                alert(error)
+                this.$message({
+                    message: String(error),
+                    type: 'warning'
+                });
             }
         }
     },
@@ -152,21 +159,42 @@ export default {
         width: 1200px;
         margin: 0 auto;
         overflow: hidden;
+        line-height: 67px;
 
         .logoArea {
             float: left;
 
             .logo {
-                img {
-                    width: 175px;
-                    margin: 25px 45px;
+                text-align: center;
+                display: block;
+                height: 60px;
+                margin-bottom: 4px;
+                margin-top: 3px;
+                width: 210px;
+                line-height: 55px;
+                font-size: 35px;
+                border: 1px white solid;
+                box-sizing: border-box;
+                border-radius: 30px;
+                background-color: red;
+                color: #fefefe;
+                text-shadow: 0px 1px 0px #c0c0c0,
+                    0px 2px 0px #b0b0b0,
+                    0px 3px 0px #a0a0a0,
+                    0px 4px 0px #909090,
+                    0px 5px 10px rgba(0, 0, 0, .9);
+                text-decoration: none;
+
+                &:hover {
+                    background-color: rgb(0, 255, 208);
+                    border: 1px solid white;
                 }
             }
         }
 
         .searchArea {
             float: right;
-            margin-top: 35px;
+            margin-top: 24px;
 
             .searchForm {
                 overflow: hidden;

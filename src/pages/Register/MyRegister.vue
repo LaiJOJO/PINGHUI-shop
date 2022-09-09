@@ -20,7 +20,7 @@
           <label>验证码:</label>
           <input type="text" name="code" placeholder="请输入你的验证码" v-model="code"
             v-validate="{ required: true, regex: /^\d{6}$/ }" :class="{ invalid: errors.has('code') }">
-          <button class="btn" style="cursor:pointer;" @click.prevent="getPassPort">获取验证码</button>
+          <button class="btn" style="cursor:pointer;" ref="btnPassPort" @click.prevent="getPassPort">获取验证码</button>
           <span class="error-msg">{{ errors.first('code') }}</span>
         </div>
         <div class="content">
@@ -37,7 +37,8 @@
         </div>
       </form>
       <div class="controls">
-        <input name="isCheck" type="checkbox" v-model="isChecked" v-validate="{ required: true,isCheck:true} " :class="{ invalid: errors.has('isCheck') }" >
+        <input name="isCheck" type="checkbox" v-model="isChecked" v-validate="{ required: true,isCheck:true} "
+          :class="{ invalid: errors.has('isCheck') }">
         <span>同意协议并注册《尚品汇用户协议》</span>
         <span class="error-msg">{{errors.first('isCheck')}}</span>
       </div>
@@ -66,6 +67,7 @@
 </template>
 
 <script>
+import throttle from 'lodash/throttle.js'
 import { mapState } from 'vuex'
 export default {
   name: 'MyRegister',
@@ -74,38 +76,55 @@ export default {
       phone: '',
       password: '',
       isChecked: true,
-      code:'',
-      password1:'',
+      code: '',
+      password1: '',
     }
   },
   methods: {
     // 获取验证码
-    async getPassPort() {
+    getPassPort: throttle(async function () {
       try {
+        let reg = new RegExp(/^1[3456789]\d{9}$/)
+        if (!reg.test(this.phone)) {
+          this.$message({
+            message: '请输入正确的手机格式',
+            type: 'warning'
+          });
+          return
+        }
+        this.$refs.btnPassPort.disabled = true
         let passport = await this.$store.dispatch('user/getPassPort', this.phone)
         this.code = passport
+        this.$message({
+          message: '验证码发送获取成功，已自动填入',
+          type: 'success'
+        });
       } catch (error) {
-        alert(error)
+        this.$message(String(error))
+        this.$refs.btnPassPort.disabled = false
       }
-    },
+    }, 3000),
     // 完成注册
-    async register(e) {
+    register: throttle(async function (e) {
       const success = await this.$validator.validateAll()
-      if(!success) return 
+      if (!success) return
       try {
         if (!this.isChecked) {
-          return alert('请勾选同意协议!')
+          return this.$message('请勾选同意协议!')
         }
         e.target.disabled = true
         const res = await this.$store.dispatch('user/register', { phone: this.phone.toString(), password: this.password.toString(), code: this.passport })
-        alert(res)
+        this.$message({
+          message: String(res),
+          type: 'success'
+        });
         e.target.disabled = false
         this.$router.replace('/login')
       } catch (error) {
-        alert(error)
+        this.$message(String(error))
         e.target.disabled = false
       }
-    },
+    }, 3000),
   },
   computed: {
     ...mapState('user', ['passport']),

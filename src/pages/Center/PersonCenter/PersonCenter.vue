@@ -23,7 +23,6 @@
               </table>
             </div>
             <div class="orders">
-
               <table class="order-item" v-for="(eachRecord) in records" :key="eachRecord.id" >
                 <thead v-if="eachRecord.orderDetailList.length!==0">
                   <tr >
@@ -38,8 +37,9 @@
                     <td width="60%">
                       <div class="typographic">
                         <img :src="eachOrder.imgUrl">
-                        <a href="javascript:;" class="block-text">{{eachOrder.skuName}}</a>
-                        <span>x1</span>
+                        <!-- 点击获取商品详情 -->
+                        <router-link :to="'/detail/' + eachOrder.skuId" class="block-text">{{eachOrder.skuName}}</router-link>
+                        <span>x{{eachOrder.skuNum}}</span>
                         <a href="javascript:;" class="service">售后申请</a>
                       </div>
                     </td>
@@ -168,7 +168,9 @@ export default {
     // 发起订单页数请求 
     getPageNo(pageNo) {
       this.getPersonCenter(pageNo,this.limit)
-    }
+    },
+    // 查看商品详情
+    
   },
   computed: {
     ...mapState('center', ['personCenter']),
