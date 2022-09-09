@@ -1,8 +1,8 @@
 <template>
   <div class="swiper-container" ref="mySwiper">
-    <div class="swiper-wrapper">
+    <div class="swiper-wrapper swiper-no-swiping" >
       <div class="swiper-slide" v-for="crousel in list" :key="crousel.id">
-        <img width="100%" :src="crousel.imgUrl" />
+        <img :src="crousel.imgUrl" />
       </div>
     </div>
     <!-- 如果需要分页器 -->
@@ -28,6 +28,7 @@ export default {
           // swiper组件实例化调用
           new Swiper(this.$refs.mySwiper, {
             loop: true, // 循环模式选项
+            autoplay: true,
 
             // 如果需要分页器
             pagination: {

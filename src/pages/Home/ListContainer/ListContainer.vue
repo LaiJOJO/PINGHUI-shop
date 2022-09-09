@@ -95,7 +95,7 @@
 import { mapState } from 'vuex'
 export default {
     name: "ListContainer",
-    mounted() {
+    created() {
         this.$store.dispatch("getBannerList");
     },
     computed: {
